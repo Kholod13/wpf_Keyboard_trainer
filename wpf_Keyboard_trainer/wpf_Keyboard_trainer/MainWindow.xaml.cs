@@ -20,9 +20,18 @@ namespace wpf_Keyboard_trainer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ViewModels viewModel;
         public MainWindow()
         {
             InitializeComponent();
+            viewModel = new ViewModels();
+            DataContext= viewModel;
+            ButtonStop.IsEnabled= false;
+        }
+
+        private void sliderDifficulty_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            textBlockDifficulty.DataContext = viewModel;
         }
     }
 }

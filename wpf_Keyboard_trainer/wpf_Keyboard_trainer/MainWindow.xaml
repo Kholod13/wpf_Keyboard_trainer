@@ -59,21 +59,27 @@
                 <TextBlock>Fails: <Run FontWeight="Bold">0</Run></TextBlock>
                 <UniformGrid Rows="2">
                     <UniformGrid Columns="2">
-                        <TextBlock>Difficulty: <Run FontWeight="Bold">1</Run></TextBlock>
-                        <Slider  Margin="0,9,0,0"  MinWidth="50"></Slider>
+                        <TextBlock x:Name="textBlockDifficulty">
+                                <Run Text="Difficulty: " />
+                                <Run Text="{Binding SliderValue}" />    
+                        </TextBlock>
+                        <Slider Minimum="0" Maximum="100" TickPlacement="BottomRight" TickFrequency="1"
+                                ValueChanged="sliderDifficulty_ValueChanged" x:Name="sliderDifficulty"
+                                Value="{Binding SliderValue, Mode=TwoWay}" Margin="0,9,0,0" MinWidth="50">
+                        </Slider>
                     </UniformGrid>
-                    <Button>Start</Button>
+                    <Button x:Name="ButtonStart">Start</Button>
                 </UniformGrid>
                 <UniformGrid Rows="2">
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5,9,0,0"></CheckBox>
                         <TextBlock>Case Sensitive</TextBlock>
                     </StackPanel>
-                    <Button>Stop</Button>
+                    <Button x:Name="ButtonStop">Stop</Button>
                 </UniformGrid>
             </UniformGrid>
             <UniformGrid Grid.Row="1" Rows="2">
-                <TextBlock Background="CadetBlue" Margin="0,1"></TextBlock>
+                <TextBlock x:Name="textBlockTextOutput" Background="CadetBlue" Margin="0,1"></TextBlock>
                 <TextBox TextWrapping="Wrap" AcceptsReturn="True" Background="DarkOrange" Margin="0,1"></TextBox>
             </UniformGrid>
             <Grid Grid.Row="2">
