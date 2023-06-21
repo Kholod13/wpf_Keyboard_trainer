@@ -36,7 +36,6 @@ namespace wpf_Keyboard_trainer
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
-            textBlockTextOutput.Text = viewModel.GenerateTextPrinting();
             viewModel.StartTimer();
             ButtonStop.IsEnabled = true;
         }
@@ -46,6 +45,11 @@ namespace wpf_Keyboard_trainer
             viewModel.StopTimer();
             //viewModel.CalcInputSymbolsInMinute();
             ButtonStop.IsEnabled = false;
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //viewModel.ErrorsWork();
         }
     }
 }

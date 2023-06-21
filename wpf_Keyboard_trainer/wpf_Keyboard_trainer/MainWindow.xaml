@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpf_Keyboard_trainer"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:ViewModels}"
         Title="Keyboard Trainer" Height="450" Width="900" MinHeight="480" MinWidth="865">
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}">
@@ -55,7 +56,7 @@
                 <RowDefinition Height="5*"></RowDefinition>
             </Grid.RowDefinitions>
             <UniformGrid  Margin="5,0" Grid.Row="0" Columns="4">
-                <TextBlock>Speed: <Run x:Name="Time" Text="{Binding Time}" FontWeight="Bold"></Run> chars/min</TextBlock>
+                <TextBlock>Speed: <Run Text="{Binding Time}" FontWeight="Bold"></Run> chars/min</TextBlock>
                 <TextBlock>Fails: <Run Text="{Binding NumFails}" FontWeight="Bold"></Run></TextBlock>
                 <UniformGrid Rows="2">
                     <UniformGrid Columns="2">
@@ -68,7 +69,7 @@
                                 Value="{Binding SliderValue, Mode=TwoWay}" Margin="0,9,0,0" MinWidth="50">
                         </Slider>
                     </UniformGrid>
-                    <Button x:Name="ButtonStart" Click="ButtonStart_Click" Command="{Binding StartButton}">Start</Button>
+                    <Button Click="ButtonStart_Click">Start</Button>
                 </UniformGrid>
                 <UniformGrid Rows="2">
                     <StackPanel Orientation="Horizontal">
@@ -79,8 +80,8 @@
                 </UniformGrid>
             </UniformGrid>
             <UniformGrid Grid.Row="1" Rows="2">
-                <TextBlock TextWrapping="Wrap" x:Name="textBlockTextOutput" Text="{Binding textOutput}" Background="CadetBlue" Margin="0,1"></TextBlock>
-                <TextBox Text="{Binding textInput}" TextWrapping="Wrap" AcceptsReturn="True" Background="DarkOrange" Margin="0,1"></TextBox>
+                <TextBlock TextWrapping="Wrap" Text="{Binding TextOutput}" Background="CadetBlue" Margin="0,1"></TextBlock>
+                <TextBox FontSize="16" x:Name="textBox_textInput" TextChanged="TextBox_TextChanged" Text="{Binding TextInput, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True" Background="DarkOrange" Margin="0,1"></TextBox>
             </UniformGrid>
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>

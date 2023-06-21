@@ -17,7 +17,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace wpf_Keyboard_trainer
 {
-    internal class ViewModels : INotifyPropertyChanged
+    public class ViewModels : INotifyPropertyChanged
     {
         string text = "The quick brown fox jumps over the lazy dog.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit. Et harum quidem rerum facilis est et expedita distinctio.Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat.Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
         string[] words;
@@ -67,10 +67,11 @@ namespace wpf_Keyboard_trainer
             {
                 _textInput = value;
                 OnPropertyChanged(nameof(TextInput));
+                ErrorsWork();
             }
         }
 
-        //private int Seconds = 0;
+        private int Seconds = 0;
 
         private int _numFails;
         public int NumFails
@@ -99,6 +100,11 @@ namespace wpf_Keyboard_trainer
             words = text.Split(new char[] { ' ', '.', ',' }, StringSplitOptions.RemoveEmptyEntries);
             List<string> wordList = new List<string>(words);
 
+            TextInput = "";
+            TextOutput = "";
+            Time = 0;
+            _sliderValue= 1;
+
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
@@ -107,39 +113,47 @@ namespace wpf_Keyboard_trainer
         private void Timer_Tick(object sender, EventArgs e)
         {
             // Виклик функції кожну секунду
-            Time++;
-            //NumErrors();
-            /*
+            //Time++;
+            Seconds++;
+            CalcInputSymbolsInMinute();
+            
+        }
+        
+        public void ErrorsWork()
+        {
+            NumErrors();
+
             if (ErrorChecking() == true)
             {
                 TextInputColor = Brushes.Red;
             }
-            */
         }
-        //FIX ERRORS
-        /*
+        
         public void CalcInputSymbolsInMinute()
         {
-            int numSyms = TextInput.Length / Seconds / 60;
+            if (TextInput != null)
+            {
+                int numSyms = (int)((double)TextInput.Length / Seconds * 60);
 
-            Time = numSyms;
+                Time = numSyms;
+                
+            }
         }
-        */
+        
 
         //FIX ERROR
-        /*
-        public void NumErrors()
+        
+        private void NumErrors()
         {
             if (ErrorChecking() == true)
             {
                 _numFails++;
             }
         }
-        */
-        public bool ErrorChecking()
+        
+        private bool ErrorChecking()
         {
-            string tmp = "";
-            tmp = tmp.Substring(0, _textInput.Length);
+            string tmp = TextInput.Substring(0, TextInput.Length);
             if (_textInput != tmp)
             {
                 return true;
@@ -154,6 +168,8 @@ namespace wpf_Keyboard_trainer
         {
             // Запуск таймера
             timer.Start();
+            GenerateTextPrinting();
+            TextInput = string.Empty;
         }
 
         public void StopTimer()
@@ -168,7 +184,7 @@ namespace wpf_Keyboard_trainer
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public string GenerateTextPrinting()
+        public void GenerateTextPrinting()
         {
             Random rand= new Random();
             string tmp = "";
@@ -178,7 +194,7 @@ namespace wpf_Keyboard_trainer
                 tmp += $"{words[rand.Next(words.Length)]} ";
             }
 
-            return tmp;
+            TextOutput = tmp;
         }
 
     }
