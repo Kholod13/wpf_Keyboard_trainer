@@ -73,8 +73,8 @@ namespace wpf_Keyboard_trainer
 
         private int Seconds = 0;
 
-        private int _numFails;
-        public int NumFails
+        private double _numFails;
+        public double NumFails
         {
             get { return _numFails; }
             set
@@ -134,13 +134,12 @@ namespace wpf_Keyboard_trainer
         public void ErrorsWork()
         {
             //string tmp = TextOutput.Substring(0, TextInput.Length);
-
             if (CheckBox == true)
             {
                 if (TextInput != TextOutput.Substring(0, TextInput.Length))
                 {
                     TextInputColor = Brushes.Red;
-                    NumFails++;
+                    NumFails+= 0.5;
                 }
                 else
                 {
@@ -175,7 +174,7 @@ namespace wpf_Keyboard_trainer
             }
         }
 
-        //fix
+        /*
         private bool ErrorChecking()
         {
             //string tmp = TextOutput.Substring(0, TextInput.Length);
@@ -189,7 +188,7 @@ namespace wpf_Keyboard_trainer
                 return false;
             }
         }
-
+        */
         public void StartTimer()
         {
             // Запуск таймера
