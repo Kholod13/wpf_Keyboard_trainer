@@ -195,6 +195,7 @@ namespace wpf_Keyboard_trainer
             timer.Start();
             GenerateTextPrinting();
             TextInput = string.Empty;
+            NumFails = 0;
         }
 
         public void StopTimer()
@@ -202,6 +203,7 @@ namespace wpf_Keyboard_trainer
             // Зупинка таймера
             timer.Stop();
             //CalcInputSymbolsInMinute();
+            
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
