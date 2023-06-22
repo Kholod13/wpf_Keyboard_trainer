@@ -95,6 +95,17 @@ namespace wpf_Keyboard_trainer
             }
         }
 
+        private bool _checkBox;
+        public bool CheckBox
+        {
+            get { return _checkBox; }
+            set
+            {
+                _checkBox = value;
+                OnPropertyChanged("CheckBox");
+            }
+        }
+
         public ViewModels()
         {
             words = text.Split(new char[] { ' ', '.', ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -103,7 +114,9 @@ namespace wpf_Keyboard_trainer
             TextInput = "";
             TextOutput = "";
             Time = 0;
-            _sliderValue= 1;
+            _sliderValue = 1;
+            NumFails = 0;
+            CheckBox = true;
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -113,22 +126,44 @@ namespace wpf_Keyboard_trainer
         private void Timer_Tick(object sender, EventArgs e)
         {
             // Виклик функції кожну секунду
-            //Time++;
             Seconds++;
             CalcInputSymbolsInMinute();
-            
+
         }
-        
+
         public void ErrorsWork()
         {
-            NumErrors();
+            //string tmp = TextOutput.Substring(0, TextInput.Length);
 
-            if (ErrorChecking() == true)
+            if (CheckBox == true)
             {
-                TextInputColor = Brushes.Red;
+                if (TextInput != TextOutput.Substring(0, TextInput.Length))
+                {
+                    TextInputColor = Brushes.Red;
+                    NumFails++;
+                }
+                else
+                {
+                    TextInputColor = Brushes.Black;
+                }
+            }
+            else 
+            {
+                if (TextInput != null && TextOutput != null)
+                {
+                    if (string.Equals(TextInput, TextOutput.Substring(0, TextInput.Length), StringComparison.OrdinalIgnoreCase))
+                    {
+                        TextInputColor = Brushes.Black;
+                    }
+                    else
+                    {
+                        TextInputColor = Brushes.Red;
+                        NumFails++;
+                    }
+                }
             }
         }
-        
+
         public void CalcInputSymbolsInMinute()
         {
             if (TextInput != null)
@@ -136,25 +171,16 @@ namespace wpf_Keyboard_trainer
                 int numSyms = (int)((double)TextInput.Length / Seconds * 60);
 
                 Time = numSyms;
-                
-            }
-        }
-        
 
-        //FIX ERROR
-        
-        private void NumErrors()
-        {
-            if (ErrorChecking() == true)
-            {
-                _numFails++;
             }
         }
-        
+
+        //fix
         private bool ErrorChecking()
         {
-            string tmp = TextInput.Substring(0, TextInput.Length);
-            if (_textInput != tmp)
+            //string tmp = TextOutput.Substring(0, TextInput.Length);
+            if (TextOutput == null) return false;
+            if (TextInput != TextOutput.Substring(0, TextInput.Length))
             {
                 return true;
             }
@@ -186,7 +212,7 @@ namespace wpf_Keyboard_trainer
 
         public void GenerateTextPrinting()
         {
-            Random rand= new Random();
+            Random rand = new Random();
             string tmp = "";
 
             for (int i = 0; i < _sliderValue; i++)

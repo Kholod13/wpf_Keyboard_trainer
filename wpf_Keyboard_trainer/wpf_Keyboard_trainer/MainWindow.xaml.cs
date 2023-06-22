@@ -49,7 +49,7 @@ namespace wpf_Keyboard_trainer
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //viewModel.ErrorsWork();
+            viewModel.ErrorsWork();
         }
     }
 }

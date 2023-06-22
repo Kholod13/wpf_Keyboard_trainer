@@ -62,7 +62,7 @@
                     <UniformGrid Columns="2">
                         <TextBlock x:Name="textBlockDifficulty">
                                 <Run Text="Difficulty: " />
-                                <Run Text="{Binding SliderValue}" />    
+                                <Run Text="{Binding SliderValue}" />
                         </TextBlock>
                         <Slider Minimum="1" Maximum="35" TickPlacement="BottomRight" TickFrequency="1"
                                 ValueChanged="sliderDifficulty_ValueChanged" x:Name="sliderDifficulty"
@@ -73,7 +73,7 @@
                 </UniformGrid>
                 <UniformGrid Rows="2">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5,9,0,0"></CheckBox>
+                        <CheckBox IsChecked="{Binding CheckBox}" Margin="5,9,0,0"></CheckBox>
                         <TextBlock>Case Sensitive</TextBlock>
                     </StackPanel>
                     <Button Click="ButtonStop_Click" x:Name="ButtonStop">Stop</Button>
@@ -81,7 +81,7 @@
             </UniformGrid>
             <UniformGrid Grid.Row="1" Rows="2">
                 <TextBlock TextWrapping="Wrap" Text="{Binding TextOutput}" Background="CadetBlue" Margin="0,1"></TextBlock>
-                <TextBox FontSize="16" x:Name="textBox_textInput" TextChanged="TextBox_TextChanged" Text="{Binding TextInput, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True" Background="DarkOrange" Margin="0,1"></TextBox>
+                <TextBox FontSize="16" Foreground="{Binding TextInputColor}" x:Name="textBox_textInput" TextChanged="TextBox_TextChanged" Text="{Binding TextInput, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True" Background="DarkOrange" Margin="0,1"></TextBox>
             </UniformGrid>
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
@@ -123,9 +123,9 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                
+
                 <!-- First Row -->
-                
+
                 <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource ButtonPink}">
                     <TextBlock Style="{StaticResource KeyboardButtonText}" >`</TextBlock>
                 </Border>
@@ -168,7 +168,7 @@
                 <Border Grid.Row="0" Grid.Column="26" Grid.ColumnSpan="4" Style="{StaticResource ButtonGray}">
                     <TextBlock Style="{StaticResource KeyboardButtonGrayText}">Backspace</TextBlock>
                 </Border>
-                
+
                 <!-- Second Row -->
 
                 <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource ButtonGray}">
@@ -294,7 +294,7 @@
                 <Border Grid.Row="3" Grid.Column="25" Grid.ColumnSpan="5" Style="{StaticResource ButtonGray}">
                     <TextBlock Style="{StaticResource KeyboardButtonGrayText}">Shift</TextBlock>
                 </Border>
-                
+
                 <!-- Fifth Row -->
 
                 <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource ButtonGray}">
